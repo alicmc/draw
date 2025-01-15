@@ -10,13 +10,13 @@ var mix_t = [];
 let numPigments = 0;
 let step = 0;
 let dragged = -1;
-let line_width = 50;
+let line_width = 80;
 var ratio = 0.65;
 let brush;
 
-// function preload() {
-//   brush = loadImage('http://localhost:1337/assets/brush_stroke.png');
-// }
+function preload() {
+  brush = loadImage('http://localhost:8000/brush_stroke.png');
+}
 
 function setup() {
   createCanvas(width, height);
@@ -47,10 +47,10 @@ function mouseDragged() {
   if (mouseX > square_size + (line_width / 2)) {
     let old_color = get(pmouseX > mouseX ? mouseX - (line_width / 2) : mouseX + (line_width / 2), mouseY);
     let mixed = mixbox.lerp(selected_color, old_color, ratio);
-    fill(mixed);
-    ellipse(mouseX, mouseY, line_width, line_width);
-    //tint(mixed);
-    //image(brush, mouseX - (line_width / 2), mouseY - (line_width / 2), line_width, line_width);
+    //fill(mixed);
+    //ellipse(mouseX, mouseY, line_width, line_width);
+    tint(mixed);
+    image(brush, mouseX - (line_width / 2), mouseY - (line_width / 2), line_width, line_width);
   }
 }
 
