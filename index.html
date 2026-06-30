@@ -5,45 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="data:,">
     <link rel="stylesheet" href="styles.css">
-    <title>Pigment Draw</title>
+    <title>Pigment Match</title>
   </head>
 
   <body>
-    <main class="app" aria-label="Pigment drawing studio">
-      <aside class="panel" aria-label="Drawing controls">
+    <main class="app" aria-label="Pigment color matching game">
+      <aside class="panel" aria-label="Game controls">
         <div class="brand">
           <span class="brand-mark" aria-hidden="true"></span>
           <div>
-            <h1>Pigment Draw</h1>
-            <p id="status" aria-live="polite">Black selected</p>
+            <h1>Pigment Match</h1>
+            <p id="status" aria-live="polite">Mix the target color</p>
           </div>
         </div>
 
-        <section class="tool-group" aria-label="Brush settings">
-          <label for="brush-size">
-            <span>Brush</span>
-            <output id="brush-output" for="brush-size">80</output>
-          </label>
-          <input id="brush-size" type="range" min="12" max="160" value="80">
-
-          <label for="blend-strength">
-            <span>Blend</span>
-            <output id="blend-output" for="blend-strength">65%</output>
-          </label>
-          <input id="blend-strength" type="range" min="0" max="100" value="65">
+        <section class="match-board" aria-label="Target and current color">
+          <div class="color-card">
+            <span>Target</span>
+            <div id="target-chip" class="color-chip"></div>
+          </div>
+          <div class="color-card">
+            <span>Your mix</span>
+            <div id="mix-chip" class="color-chip"></div>
+          </div>
         </section>
 
-        <section class="tool-group" aria-label="Actions">
+        <section class="score-board" aria-label="Score">
+          <div>
+            <span>Last score</span>
+            <strong id="score-value">--</strong>
+          </div>
+          <div>
+            <span>Best</span>
+            <strong id="best-value">--</strong>
+          </div>
+        </section>
+
+        <section class="tool-group" aria-label="Game actions">
           <div class="actions">
-            <button id="undo-button" class="icon-button" type="button" aria-label="Undo last stroke" title="Undo">
-              <span aria-hidden="true">↶</span>
-            </button>
-            <button id="clear-button" class="icon-button" type="button" aria-label="Clear canvas" title="Clear">
-              <span aria-hidden="true">×</span>
-            </button>
-            <button id="save-button" class="icon-button" type="button" aria-label="Download drawing" title="Download">
-              <span aria-hidden="true">↓</span>
-            </button>
+            <button id="check-button" class="text-button primary" type="button">Check</button>
+            <button id="undo-button" class="text-button" type="button">Undo</button>
+            <button id="reset-button" class="text-button" type="button">Reset</button>
+            <button id="next-button" class="text-button" type="button">Next</button>
           </div>
         </section>
 
@@ -52,7 +55,7 @@
         </section>
       </aside>
 
-      <section class="stage" aria-label="Drawing canvas">
+      <section class="stage" aria-label="Pigment mixing canvas">
         <div id="canvas-shell" class="canvas-shell"></div>
       </section>
     </main>
