@@ -37,6 +37,7 @@ let brush;
 let drawingLayer;
 let history = [];
 let strokeStarted = false;
+let touchDrawing = false;
 let currentMix;
 let strokeColor;
 let targetColor;
@@ -44,7 +45,11 @@ let bestScore = Number(localStorage.getItem("pigmentMatchBest") || 0);
 let roundRequestId = 0;
 
 const shell = document.getElementById("canvas-shell");
+const panel = document.querySelector(".panel");
 const palette = document.getElementById("palette");
+const matchBoard = document.getElementById("match-board");
+const mobileMatchAnchor = document.getElementById("mobile-match-anchor");
+const scoreBoard = document.querySelector(".score-board");
 const checkButton = document.getElementById("check-button");
 const undoButton = document.getElementById("undo-button");
 const resetButton = document.getElementById("reset-button");
@@ -56,6 +61,9 @@ const memeImage = document.getElementById("meme-image");
 const memeLink = document.getElementById("meme-link");
 const scoreValue = document.getElementById("score-value");
 const bestValue = document.getElementById("best-value");
+const mobileLayout = window.matchMedia("(max-width: 780px)");
+
+mobileLayout.addEventListener("change", placeMatchBoard);
 
 function preload() {
   brush = loadImage("brush_stroke.png");
@@ -78,6 +86,7 @@ function setup() {
 
   buildPalette();
   bindControls();
+  placeMatchBoard();
   startRound();
   renderCanvas();
 }
@@ -106,19 +115,31 @@ function mouseReleased() {
   strokeStarted = false;
 }
 
-function touchStarted() {
+function touchStarted(event) {
+  touchDrawing = touchEventInsideCanvas(event);
+  if (!touchDrawing) {
+    return true;
+  }
   mousePressed();
   return false;
 }
 
 function touchMoved() {
+  if (!touchDrawing) {
+    return true;
+  }
   mouseDragged();
   return false;
 }
 
 function touchEnded() {
-  mouseReleased();
-  return false;
+  if (touchDrawing) {
+    mouseReleased();
+    touchDrawing = false;
+    return false;
+  }
+  touchDrawing = false;
+  return true;
 }
 
 function windowResized() {
@@ -151,6 +172,14 @@ function bindControls() {
   undoButton.addEventListener("click", undoStroke);
   resetButton.addEventListener("click", resetMix);
   nextButton.addEventListener("click", startRound);
+}
+
+function placeMatchBoard() {
+  if (mobileLayout.matches) {
+    mobileMatchAnchor.appendChild(matchBoard);
+    return;
+  }
+  panel.insertBefore(matchBoard, scoreBoard);
 }
 
 async function fetchMeme() {
@@ -552,6 +581,20 @@ function renderCanvas() {
 
 function insideCanvas() {
   return mouseX >= 0 && mouseX <= width && mouseY >= 0 && mouseY <= height;
+}
+
+function touchEventInsideCanvas(event) {
+  const touch = event?.changedTouches?.[0] || event?.touches?.[0];
+  if (!touch) {
+    return insideCanvas();
+  }
+  const rect = shell.getBoundingClientRect();
+  return (
+    touch.clientX >= rect.left &&
+    touch.clientX <= rect.right &&
+    touch.clientY >= rect.top &&
+    touch.clientY <= rect.bottom
+  );
 }
 
 function updateStatus(message) {
