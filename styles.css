@@ -1,11 +1,11 @@
 :root {
-  --ink: #191612;
-  --muted: #6f6a62;
-  --paper: #f8f5ee;
-  --panel: #fffaf0;
-  --line: #d9d0bf;
-  --shadow: 0 22px 60px rgba(32, 24, 12, 0.16);
-  --focus: #0a6c7d;
+  --ink: #17120d;
+  --muted: #765e8b;
+  --paper: #fff4a8;
+  --panel: #fff7fe;
+  --line: #231a11;
+  --shadow: 8px 8px 0 rgba(23, 18, 13, 0.24);
+  --focus: #ff4fb7;
 }
 
 * {
@@ -20,14 +20,14 @@ body {
 body {
   margin: 0;
   color: var(--ink);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Comic Sans MS", "Comic Sans", "Comic Neue", cursive;
   background:
-    linear-gradient(90deg, rgba(25, 22, 18, 0.045) 1px, transparent 1px),
-    linear-gradient(rgba(25, 22, 18, 0.04) 1px, transparent 1px),
-    radial-gradient(circle at 18% 12%, rgba(255, 202, 58, 0.25), transparent 26rem),
-    radial-gradient(circle at 88% 84%, rgba(7, 95, 110, 0.18), transparent 28rem),
+    linear-gradient(90deg, rgba(23, 18, 13, 0.08) 2px, transparent 2px),
+    linear-gradient(rgba(23, 18, 13, 0.08) 2px, transparent 2px),
+    radial-gradient(circle at 16% 10%, rgba(255, 79, 183, 0.38), transparent 18rem),
+    radial-gradient(circle at 90% 82%, rgba(0, 219, 255, 0.32), transparent 24rem),
     var(--paper);
-  background-size: 28px 28px, 28px 28px, auto, auto, auto;
+  background-size: 34px 34px, 34px 34px, auto, auto, auto;
 }
 
 button {
@@ -36,10 +36,19 @@ button {
 
 .app {
   display: grid;
-  grid-template-columns: minmax(16rem, 20rem) 1fr;
+  grid-template-columns: minmax(15rem, 19rem) minmax(0, 1fr);
   min-height: 100vh;
-  gap: clamp(1rem, 2vw, 1.5rem);
-  padding: clamp(0.75rem, 2vw, 1.5rem);
+  gap: clamp(0.65rem, 1.4vw, 1rem);
+  padding: clamp(0.75rem, 2vw, 1.5rem) clamp(0.75rem, 2vw, 1.5rem) clamp(0.75rem, 2vw, 1.5rem) clamp(1.5rem, 4vw, 3rem);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 .panel {
@@ -52,9 +61,9 @@ button {
   padding: 1rem;
   border: 1px solid rgba(25, 22, 18, 0.16);
   border-radius: 8px;
-  background: rgba(255, 250, 240, 0.9);
+  background: rgba(255, 247, 254, 0.92);
   box-shadow: var(--shadow);
-  backdrop-filter: blur(16px);
+  transform: rotate(-0.35deg);
 }
 
 .brand {
@@ -71,15 +80,16 @@ button {
   border: 2px solid var(--ink);
   border-radius: 50%;
   background:
-    conic-gradient(from 18deg, #ffec04, #ff6900, #bf0012, #4a0065, #08228a, #004a29, #543224, #ffec04);
+    conic-gradient(from 18deg, #fff000, #ff7a00, #ff2867, #a600ff, #004dff, #00bf63, #fff000);
   box-shadow: inset 0 0 0 5px var(--panel);
 }
 
 h1 {
   margin: 0;
   font-size: clamp(1.35rem, 3vw, 2.1rem);
-  line-height: 1;
+  line-height: 0.92;
   letter-spacing: 0;
+  text-shadow: 2px 2px 0 #ffe54d;
 }
 
 .brand p {
@@ -100,11 +110,13 @@ h1 {
   padding: 0.65rem;
   border: 1px solid rgba(25, 22, 18, 0.16);
   border-radius: 8px;
-  background: rgba(255, 254, 249, 0.74);
+  background: #ffffff;
+  box-shadow: 4px 4px 0 rgba(23, 18, 13, 0.12);
 }
 
 .color-card span,
-.score-board span {
+.score-board span,
+.meme-card span {
   color: var(--muted);
   font-size: 0.75rem;
   font-weight: 800;
@@ -113,11 +125,37 @@ h1 {
 }
 
 .color-chip {
-  min-height: 5rem;
-  border: 1px solid rgba(25, 22, 18, 0.22);
+  min-height: 4.5rem;
+  border: 2px solid var(--ink);
   border-radius: 8px;
   background: #fffdfa;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.meme-card {
+  display: grid;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  box-shadow: none;
+}
+
+.meme-card img {
+  width: 100%;
+  max-height: 8rem;
+  object-fit: contain;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.meme-card a {
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .score-board {
@@ -128,7 +166,7 @@ h1 {
 
 .score-board div {
   padding: 0.75rem;
-  border: 1px solid rgba(25, 22, 18, 0.16);
+  border: 2px solid var(--ink);
   border-radius: 8px;
   background: #191612;
   color: #fffaf0;
@@ -157,12 +195,12 @@ h1 {
   display: grid;
   place-items: center;
   min-height: 2.75rem;
-  border: 1px solid rgba(25, 22, 18, 0.22);
+  border: 2px solid var(--ink);
   border-radius: 8px;
   color: var(--ink);
   background: #fffef9;
   cursor: pointer;
-  box-shadow: 0 6px 0 rgba(25, 22, 18, 0.1);
+  box-shadow: 0 5px 0 rgba(25, 22, 18, 0.22);
   font-size: clamp(0.68rem, 1vw, 0.84rem);
   font-weight: 900;
   letter-spacing: 0.08em;
@@ -171,15 +209,15 @@ h1 {
 }
 
 .text-button.primary {
-  color: #fffaf0;
+  color: #17120d;
   border-color: #191612;
-  background: #191612;
+  background: #9cff00;
 }
 
 .text-button:hover {
   border-color: rgba(25, 22, 18, 0.45);
-  transform: translateY(-1px);
-  box-shadow: 0 8px 0 rgba(25, 22, 18, 0.1);
+  transform: translateY(-1px) rotate(-1deg);
+  box-shadow: 0 7px 0 rgba(25, 22, 18, 0.2);
 }
 
 .text-button:active {
@@ -225,13 +263,30 @@ h1 {
   min-width: 0;
   min-height: 24rem;
   display: grid;
+  grid-template-rows: auto auto;
+  align-content: start;
+  gap: 1rem;
+  transform: rotate(0.18deg);
+}
+
+.stage-meme {
+  width: min(100%, 54rem);
+  justify-self: center;
+}
+
+.stage-meme img {
+  max-height: clamp(12rem, 30vh, 19rem);
+  object-fit: contain;
+  box-shadow: none;
 }
 
 .canvas-shell {
   position: relative;
   overflow: hidden;
-  min-height: calc(100vh - clamp(1.5rem, 4vw, 3rem));
-  border: 1px solid rgba(25, 22, 18, 0.18);
+  width: min(100%, 54rem);
+  min-height: clamp(18rem, 40vh, 27rem);
+  justify-self: center;
+  border: 2px solid var(--ink);
   border-radius: 8px;
   background: #fffdfa;
   box-shadow: var(--shadow);
@@ -265,6 +320,8 @@ h1 {
   .panel {
     position: relative;
     z-index: 2;
+    max-height: none;
+    transform: none;
   }
 
   .palette {
@@ -272,7 +329,15 @@ h1 {
   }
 
   .canvas-shell {
-    min-height: 64vh;
+    min-height: 46vh;
+  }
+
+  .stage {
+    transform: none;
+  }
+
+  .stage-meme img {
+    max-height: 12rem;
   }
 }
 

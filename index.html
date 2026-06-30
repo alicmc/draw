@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="data:,">
-    <link rel="stylesheet" href="styles.css">
-    <title>Pigment Match</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Meme Match</title>
   </head>
 
   <body>
@@ -14,7 +14,7 @@
         <div class="brand">
           <span class="brand-mark" aria-hidden="true"></span>
           <div>
-            <h1>Pigment Match</h1>
+            <h1>Meme Match</h1>
             <p id="status" aria-live="polite">Mix the target color</p>
           </div>
         </div>
@@ -43,10 +43,18 @@
 
         <section class="tool-group" aria-label="Game actions">
           <div class="actions">
-            <button id="check-button" class="text-button primary" type="button">Check</button>
-            <button id="undo-button" class="text-button" type="button">Undo</button>
-            <button id="reset-button" class="text-button" type="button">Reset</button>
-            <button id="next-button" class="text-button" type="button">Next</button>
+            <button id="check-button" class="text-button primary" type="button">
+              Check
+            </button>
+            <button id="undo-button" class="text-button" type="button">
+              Undo
+            </button>
+            <button id="reset-button" class="text-button" type="button">
+              Reset
+            </button>
+            <button id="next-button" class="text-button" type="button">
+              Next
+            </button>
           </div>
         </section>
 
@@ -55,7 +63,18 @@
         </section>
       </aside>
 
-      <section class="stage" aria-label="Pigment mixing canvas">
+      <section class="stage" aria-label="Meme prompt and pigment mixing canvas">
+        <section class="meme-card stage-meme" aria-label="Meme prompt">
+          <img id="meme-image" alt="" />
+          <a
+            id="meme-link"
+            class="visually-hidden"
+            href="#"
+            target="_blank"
+            rel="noreferrer"
+            >Open source</a
+          >
+        </section>
         <div id="canvas-shell" class="canvas-shell"></div>
       </section>
     </main>
