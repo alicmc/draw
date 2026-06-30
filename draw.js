@@ -15,7 +15,7 @@ var ratio = 0.65;
 let brush;
 
 function preload() {
-  brush = loadImage('http://localhost:8000/brush_stroke.png');
+  brush = loadImage('brush_stroke.png');
 }
 
 function setup() {
