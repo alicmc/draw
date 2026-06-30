@@ -28,6 +28,7 @@ const paperTolerance = 18;
 const scoreDistanceScale = 235;
 const scoreExponent = 1.65;
 const memeEndpoint = "https://meme-api.com/gimme";
+const imageProxyEndpoint = "https://images.weserv.nl/";
 
 let pigments = [];
 let selectedColor;
@@ -167,12 +168,12 @@ function getBestMemeImageUrl(meme) {
   return meme.url || preview;
 }
 
-function showMeme(meme, imageUrl) {
+function showMeme(meme, imageUrl, sourceUrl) {
   memeImage.hidden = false;
   memeImage.src = imageUrl;
   memeImage.alt = meme.title ? `Meme prompt: ${meme.title}` : "Meme prompt";
   memeLink.hidden = false;
-  memeLink.href = meme.postLink || imageUrl;
+  memeLink.href = meme.postLink || sourceUrl || imageUrl;
   memeLink.textContent = meme.title ? trimTitle(meme.title) : "Open source";
 }
 
@@ -187,6 +188,13 @@ function clearMeme() {
 
 function trimTitle(title) {
   return title.length > 34 ? `${title.slice(0, 31)}...` : title;
+}
+
+function proxyImageUrl(imageUrl) {
+  const url = new URL(imageProxyEndpoint);
+  url.searchParams.set("url", imageUrl.replace(/^https?:\/\//, ""));
+  url.searchParams.set("output", "jpg");
+  return url.toString();
 }
 
 async function getDominantImageColor(imageUrl) {
@@ -316,14 +324,15 @@ async function startRound() {
       return;
     }
 
-    const imageUrl = getBestMemeImageUrl(meme);
+    const sourceImageUrl = getBestMemeImageUrl(meme);
+    const imageUrl = proxyImageUrl(sourceImageUrl);
     const dominant = await getDominantImageColor(imageUrl);
     if (requestId !== roundRequestId) {
       return;
     }
 
     targetColor = color(...dominant);
-    showMeme(meme, imageUrl);
+    showMeme(meme, imageUrl, sourceImageUrl);
     updateStatus("Match the meme color");
   } catch (error) {
     targetColor = makeTargetColor();
